@@ -83,6 +83,22 @@ diffdiff <- function(df, state, y1, y2) {
   return(print(values))
 }
 
-# Example 
+# states to be used for analyses in a for loop
 
-diffdiff(lt_heroin_data, "Colorado", "2016", "2011")
+state_names <- c("Alaska", "Colorado", "Oregon", "Washington")
+
+# LIFETIME HEROIN USE ANALYSIS
+
+heroin_results <- list()
+
+for (i in state_names) {
+  heroin_results[[i]] <- diffdiff(lt_heroin_data, i, "2016", "2011")
+}
+
+capture.output(heroin_results, 
+               file = "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/reports/lt_heroin.txt")
+  
+  
+  
+  
+  
