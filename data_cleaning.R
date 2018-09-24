@@ -32,11 +32,19 @@ lt_heroin_data <- lt_heroin_data %>%
   ) %>%
   separate(state_fips_code_numeric, c("fips_code", "state"),
            sep = "-") %>%
-  separate(heroin_ever_used, c("ever_used_recode", "ever_used_answ"), 
-           sep = "-") %>% 
-  filter(ever_used_recode == "1 ") %>% 
-  select(fips_code, state, ever_used_recode, ever_used_answ, 
-         use_est = column_percent, use_se = column_percent_se, year) 
+  separate(heroin_ever_used,
+           c("ever_used_recode", "ever_used_answ"),
+           sep = "-") %>%
+  filter(ever_used_recode == "1 ") %>%
+  select(
+    fips_code,
+    state,
+    ever_used_recode,
+    ever_used_answ,
+    use_est = column_percent,
+    use_se = column_percent_se,
+    year
+  ) 
 
 # removing white space padding around state names
 
@@ -67,13 +75,23 @@ py_oud_data <- py_oud_data %>%
     !state_fips_code_numeric %in% c("11 - District of Columbia"),
     pain_reliever_abuse_or_dependence_past_year != "Overall"
   ) %>%
-  separate(pain_reliever_abuse_or_dependence_past_year, c("abuse_recode", "abuse_answ"), 
-           sep = "-") %>%
+  separate(
+    pain_reliever_abuse_or_dependence_past_year,
+    c("abuse_recode", "abuse_answ"),
+    sep = "-"
+  ) %>%
   separate(state_fips_code_numeric, c("fips_code", "state"),
            sep = "-") %>%
-  filter(abuse_recode == "1 ") %>% 
-  select(fips_code, state, abuse_recode, abuse_answ, 
-         use_est = row_percent, use_se = row_percent_se, year)
+  filter(abuse_recode == "1 ") %>%
+  select(
+    fips_code,
+    state,
+    abuse_recode,
+    abuse_answ,
+    use_est = column_percent,
+    use_se = column_percent_se,
+    year
+  )
 
 # removing white space padding around state names
 
@@ -99,13 +117,26 @@ nmpou_data <- janitor::clean_names(nmpou_data)
 
 nmpou_data <- nmpou_data %>%
   filter(
-    !state_fips_code_numeric %in% c("Overall", "11 - District of Columbia"),
-    pain_relievers_past_year_use == "Overall"
+    !state_fips_code_numeric %in% c("11 - District of Columbia"),
+    pain_relievers_past_year_use != "Overall"
   ) %>%
+  separate(pain_relievers_past_year_use,
+           c("use_recode", "use_answ"),
+           sep = "-") %>%
   separate(state_fips_code_numeric, c("fips_code", "state"),
            sep = "-") %>%
-  select(fips_code, state, use_est = row_percent, use_se = row_percent_se, year)
+  filter(use_recode == "1 ") %>%
+  select(fips_code,
+         state,
+         use_recode,
+         use_answ,
+         use_est = column_percent,
+         use_se = column_percent_se,
+         year)
 
+# removing white space padding around state names
+
+nmpou_data$state <- gsub(" ", "", nmpou_data$state, fixed = TRUE)
 
 # EXPORTING DATA TO CSV
 
