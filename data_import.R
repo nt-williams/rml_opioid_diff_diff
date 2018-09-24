@@ -37,7 +37,7 @@ lt_heroin_1516_data <- lt_heroin_1516_data %>%
 
 heroin_list <- list(lt_heroin_1011_data, lt_heroin_1213_data, lt_heroin_1415_data, lt_heroin_1516_data)
 
-# PAST YEAR OPIOID USE DISORDER FILES
+# PAST YEAR OPIOID USE DEPENDENCE FILES
 # importing past year opioid use disorder data for 2010-2016
 
 py_oud_1011_data <- read_excel("C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/raw/PY_OUD_state_2010-16.xlsx", 
