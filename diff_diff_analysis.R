@@ -8,26 +8,34 @@ library(tidyverse)
 
 # importing cleaned datasets
 
-lt_heroin_data <- read_csv("C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/clean/lt_heroin_10_16.csv", 
-                           col_types = 'ccddi')
+lt_heroin_data <- read_csv(
+  "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/clean/lt_heroin_10_16.csv",
+  col_types = 'ccddi'
+  )
 
-py_oud_data <- read_csv("C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/clean/py_oud_10_16.csv", 
-                        col_types = 'ccddi')
+py_oud_data <-
+  read_csv(
+    "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/clean/py_oud_10_16.csv",
+    col_types = 'ccddi'
+  )
 
-nmpou_data <- read_csv("C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/clean/nmpou_nosex_noage_10_16.csv", 
-                       col_types = 'ccddi')
+nmpou_data <-
+  read_csv(
+    "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/clean/nmpou_nosex_noage_10_16.csv",
+    col_types = 'ccddi'
+  )
 
 # diff-in-diff function
 
-diffdiff <- function(df, state, year_1, year_2) {
+diffdiff <- function(df, state, y1, y2) {
   est_1 <- df %>% filter(state == state, 
-                         year == year_1)
+                         year == y1)
   est_2 <- df %>% filter(state == state, 
-                         year == year_2)
+                         year == y2)
   us_1  <- df %>% filter(state == "Overall", 
-                         year = year_1)
+                         year == y1)
   us_2  <- df %>% filter(state == "Overall", 
-                         year == year_2)
+                         year == y2)
   
   set.seed(10)
   s1 <- rnorm(n = 10000,
@@ -53,12 +61,12 @@ diffdiff <- function(df, state, year_1, year_2) {
     select(difference1,
            difference2)
   diff_in_diff <- simulated_diff %>% 
-    mutate(diffdiff = difference1 - difference2) %>%
+    mutate(diff_diff = difference1 - difference2) %>%
     select(diff_diff)
   
   ci_state <- quantile(simulated_diff$difference1, c(0.025, 0.975))
   
-  ci_US <- quantile(simulated_diff$difference2, c(0.025, 0.975))
+  ci_us <- quantile(simulated_diff$difference2, c(0.025, 0.975))
   
   ci <- quantile(diff_in_diff$diff_diff, c(0.025, 0.975))
   
@@ -67,10 +75,14 @@ diffdiff <- function(df, state, year_1, year_2) {
   se <- sd(diff_in_diff$diff_diff) 
   
   values <- list("State difference CI" = ci_state, 
-                 "US difference CI" = ci_US,
+                 "US difference CI" = ci_us,
                  "diff-in-diff" = delta, 
                  "diff-in-diff SE" = se, 
                  "diff-in-diff CI" = ci)
   
   return(print(values))
 }
+
+# Example 
+
+diffdiff(lt_heroin_data, "Colorado", "2016", "2011")
