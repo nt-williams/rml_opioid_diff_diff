@@ -111,4 +111,13 @@ for (i in state_names) {
 capture.output(opioid_depend_results, 
                file = "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/reports/opioid_dependence.txt")  
 
-  
+# PRESCRIPTION NON-MEDICAL MISUSE (NO SEX/AGE) ANALYSIS
+
+opioid_misuse_results <- list()
+
+for (i in state_names) {
+  opioid_misuse_results[[i]] <- diffdiff(nmpou_data, i, "2016", "2011")
+}
+
+capture.output(opioid_misuse_results, 
+               file = "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/reports/opioid_misuse.txt")
