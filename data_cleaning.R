@@ -98,7 +98,7 @@ py_oud_data <- py_oud_data %>%
 py_oud_data$state <- gsub(" ", "", py_oud_data$state, fixed = TRUE)
 
 
-# CLEANING PRESCRIPTION NON-MEDICAL USE (NO SEX/AGE)
+# CLEANING PRESCRIPTION NON-MEDICAL MISUSE (NO SEX/AGE)
 #changing variable name for 2015-2016 data
 
 nmpou_1516_data <- nmpou_1516_data %>% rename("PAIN RELIEVERS - PAST YEAR USE" = "RC-OPIOIDS - PAST YEAR MISUSE")
