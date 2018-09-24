@@ -27,13 +27,15 @@ lt_heroin_data <- janitor::clean_names(lt_heroin_data)
 
 lt_heroin_data <- lt_heroin_data %>%
   filter(
-    !state_fips_code_numeric %in% c("Overall", "11 - District of Columbia"),
-    heroin_ever_used == "Overall"
+    !state_fips_code_numeric %in% c("11 - District of Columbia"),
+    heroin_ever_used != "Overall"
   ) %>%
   separate(state_fips_code_numeric, c("fips_code", "state"),
            sep = "-") %>%
-  select(fips_code, state, use_est = row_percent, use_se = row_percent_se, year)
-
+  separate(heroin_ever_used, c("ever_used_recode", "ever_used_answ"), 
+           sep = "-") %>% 
+  filter(ever_used_recode == "1 ") %>% 
+  select(fips_code, state, ever_used_recode, ever_used_answ, use_est = column_percent, use_se = column_percent_se, year)
 
 # CLEANING PAST YEAR OPIOID USE
 # changing variable name for 2015-2016 data
