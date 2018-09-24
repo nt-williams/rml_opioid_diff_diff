@@ -64,15 +64,15 @@ diffdiff <- function(df, state, y1, y2) {
     mutate(diff_diff = difference1 - difference2) %>%
     select(diff_diff)
   
-  ci_state <- quantile(simulated_diff$difference1, c(0.025, 0.975))
+  ci_state <- quantile(simulated_diff$difference1, c(0.025, 0.975))*100
   
-  ci_us <- quantile(simulated_diff$difference2, c(0.025, 0.975))
+  ci_us <- quantile(simulated_diff$difference2, c(0.025, 0.975))*100
   
-  ci <- quantile(diff_in_diff$diff_diff, c(0.025, 0.975))
+  ci <- quantile(diff_in_diff$diff_diff, c(0.025, 0.975))*100
   
-  delta <- mean(diff_in_diff$diff_diff)
+  delta <- mean(diff_in_diff$diff_diff)*100
   
-  se <- sd(diff_in_diff$diff_diff) 
+  se <- sd(diff_in_diff$diff_diff)*100
   
   values <- list("State difference CI" = ci_state, 
                  "US difference CI" = ci_us,
@@ -83,6 +83,8 @@ diffdiff <- function(df, state, y1, y2) {
   return(print(values))
 }
 
+
+# CONDUCTING ANALYSES
 # states to be used for analyses in a for loop
 
 state_names <- c("Alaska", "Colorado", "Oregon", "Washington")
