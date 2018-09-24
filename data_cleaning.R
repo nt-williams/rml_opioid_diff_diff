@@ -51,7 +51,7 @@ lt_heroin_data <- lt_heroin_data %>%
 lt_heroin_data$state <- gsub(" ", "", lt_heroin_data$state, fixed = TRUE)
 
 
-# CLEANING PAST YEAR OPIOID USE
+# CLEANING PAST YEAR OPIOID ABUSE
 # changing variable name for 2015-2016 data
 
 py_oud_1516_data <- py_oud_1516_data %>% rename(
