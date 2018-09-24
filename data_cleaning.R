@@ -35,7 +35,13 @@ lt_heroin_data <- lt_heroin_data %>%
   separate(heroin_ever_used, c("ever_used_recode", "ever_used_answ"), 
            sep = "-") %>% 
   filter(ever_used_recode == "1 ") %>% 
-  select(fips_code, state, ever_used_recode, ever_used_answ, use_est = column_percent, use_se = column_percent_se, year)
+  select(fips_code, state, ever_used_recode, ever_used_answ, 
+         use_est = column_percent, use_se = column_percent_se, year) 
+
+# removing white space padding around state names
+
+lt_heroin_data$state <- gsub(" ", "", lt_heroin_data$state, fixed = TRUE)
+
 
 # CLEANING PAST YEAR OPIOID USE
 # changing variable name for 2015-2016 data
@@ -58,12 +64,20 @@ py_oud_data <- janitor::clean_names(py_oud_data)
 
 py_oud_data <- py_oud_data %>%
   filter(
-    !state_fips_code_numeric %in% c("Overall", "11 - District of Columbia"),
-    pain_reliever_abuse_or_dependence_past_year == "Overall"
+    !state_fips_code_numeric %in% c("11 - District of Columbia"),
+    pain_reliever_abuse_or_dependence_past_year != "Overall"
   ) %>%
+  separate(pain_reliever_abuse_or_dependence_past_year, c("abuse_recode", "abuse_answ"), 
+           sep = "-") %>%
   separate(state_fips_code_numeric, c("fips_code", "state"),
            sep = "-") %>%
-  select(fips_code, state, use_est = row_percent, use_se = row_percent_se, year)
+  filter(abuse_recode == "1 ") %>% 
+  select(fips_code, state, abuse_recode, abuse_answ, 
+         use_est = row_percent, use_se = row_percent_se, year)
+
+# removing white space padding around state names
+
+py_oud_data$state <- gsub(" ", "", py_oud_data$state, fixed = TRUE)
 
 
 # CLEANING PRESCRIPTION NON-MEDICAL USE (NO SEX/AGE)
@@ -91,6 +105,7 @@ nmpou_data <- nmpou_data %>%
   separate(state_fips_code_numeric, c("fips_code", "state"),
            sep = "-") %>%
   select(fips_code, state, use_est = row_percent, use_se = row_percent_se, year)
+
 
 # EXPORTING DATA TO CSV
 
