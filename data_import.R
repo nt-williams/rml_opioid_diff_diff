@@ -27,6 +27,10 @@ lt_heroin_1415_data <- lt_heroin_1415_data %>%
 lt_heroin_1516_data <- lt_heroin_1516_data %>% 
   mutate(year = "2016")
 
+# putting datasets into a list
+
+heroin_list <- list(lt_heroin_1011_data, lt_heroin_1213_data, lt_heroin_1415_data, lt_heroin_1516_data)
+
 # PAST YEAR OPIOID USE DISORDER FILES
 # importing past year opioid use disorder data for 2010-2016
 
@@ -47,6 +51,10 @@ py_oud_1213_data <- py_oud_1213_data %>%
   mutate(year = "2013")
 py_oud_1516_data <- py_oud_1516_data %>% 
   mutate(year = "2016")
+
+# putting datasets into a list
+
+py_oud_list <- list(py_oud_1011_data, py_oud_1213_data, py_oud_1516_data)
 
 # PRESCRIPTION NON-MEDICAL USE (NO SEX/AGE) DATASETS
 # importing prescription non-medical use (no sex/age) data for 2010-2016
@@ -69,3 +77,6 @@ nmpou_1213_data <- nmpou_1213_data %>%
 nmpou_1516_data <- nmpou_1516_data %>% 
   mutate(year = "2016")
 
+# putting datasets into a list
+
+nmpou_list <- list(nmpou_1011_data, nmpou_1213_data, nmpou_1516_data)
