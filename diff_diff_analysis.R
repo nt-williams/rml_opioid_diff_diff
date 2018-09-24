@@ -100,7 +100,15 @@ for (i in state_names) {
 capture.output(heroin_results, 
                file = "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/reports/lt_heroin.txt")
   
-  
-  
-  
+# PAST YEAR OPIOID ABUSE/DEPENDENCE ANALYSIS
+
+opioid_depend_results <- list()
+
+for (i in state_names) {
+  opioid_depend_results[[i]] <- diffdiff(py_oud_data, i, "2016", "2011")
+}  
+
+capture.output(opioid_depend_results, 
+               file = "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/reports/opioid_dependence.txt")  
+
   
