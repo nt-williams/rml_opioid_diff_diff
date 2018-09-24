@@ -84,3 +84,14 @@ nmpou_data <- nmpou_data %>%
   separate(state_fips_code_numeric, c("fips_code", "state"),
            sep = "-") %>%
   select(fips_code, state, use_est = row_percent, use_se = row_percent_se, year)
+
+# EXPORTING DATA TO CSV
+
+write_csv(lt_heroin_data, 
+          "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/clean/lt_heroin_10_16.csv")
+
+write_csv(py_oud_data, 
+          "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/clean/py_oud_10_16.csv")
+
+write_csv(nmpou_data, 
+          "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/clean/nmpou_nosex_noage_10_16.csv")
