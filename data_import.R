@@ -27,10 +27,6 @@ lt_heroin_1415_data <- lt_heroin_1415_data %>%
 lt_heroin_1516_data <- lt_heroin_1516_data %>% 
   mutate(year = "2016")
 
-# putting datasets into a list called heroin_list
-
-heroin_list <- list(lt_heroin_1011_data, lt_heroin_1213_data, lt_heroin_1415_data, lt_heroin_1516_data)
-
 # PAST YEAR OPIOID USE DISORDER FILES
 # importing past year opioid use disorder data for 2010-2016
 
@@ -52,8 +48,24 @@ py_oud_1213_data <- py_oud_1213_data %>%
 py_oud_1516_data <- py_oud_1516_data %>% 
   mutate(year = "2016")
 
-# putting datasets into a list
+# PRESCRIPTION NON-MEDICAL USE (NO SEX/AGE) DATASETS
+# importing prescription non-medical use (no sex/age) data for 2010-2016
 
-py_oud_list <- list(py_oud_1011_data, py_oud_1213_data, py_oud_1516_data)
+nmpou_1011_data <- read_excel("C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/raw/PYNUMPO_state_2010-16.xlsx", 
+                              sheet = "PainRelieverPY_State1011")
 
+nmpou_1213_data <- read_excel("C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/raw/PYNUMPO_state_2010-16.xlsx", 
+                              sheet = "PainRelieverPY_State1213")
+
+nmpou_1516_data <- read_excel("C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/raw/PYNUMPO_state_2010-16.xlsx", 
+                              sheet = "PainRelieverPY_State1516")
+
+# creating year variables for nmpou datasets
+
+nmpou_1011_data <- nmpou_1011_data %>% 
+  mutate(year = "2011")
+nmpou_1213_data <- nmpou_1213_data %>% 
+  mutate(year = "2013")
+nmpou_1516_data <- nmpou_1516_data %>% 
+  mutate(year = "2016")
 
