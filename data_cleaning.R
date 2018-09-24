@@ -29,6 +29,7 @@ lt_heroin_data <- lt_heroin_data %>%
            sep = "-") %>%
   select(fips_code, state, use_est = row_percent, use_se = row_percent_se, year)
 
+
 # CLEANING PAST YEAR OPIOID USE
 # changing variable name for 2015-2016 data
 
@@ -57,3 +58,29 @@ py_oud_data <- py_oud_data %>%
            sep = "-") %>%
   select(fips_code, state, use_est = row_percent, use_se = row_percent_se, year)
 
+
+# CLEANING PRESCRIPTION NON-MEDICAL USE (NO SEX/AGE)
+#changing variable name for 2015-2016 data
+
+nmpou_1516_data <- nmpou_1516_data %>% rename("PAIN RELIEVERS - PAST YEAR USE" = "RC-OPIOIDS - PAST YEAR MISUSE")
+
+# stacking data
+
+nmpou_data <- bind_rows(nmpou_1011_data, 
+                        nmpou_1213_data, 
+                        nmpou_1516_data)
+
+# cleaning names
+
+nmpou_data <- janitor::clean_names(nmpou_data)
+
+# cleaning data
+
+nmpou_data <- nmpou_data %>%
+  filter(
+    !state_fips_code_numeric %in% c("Overall", "11 - District of Columbia"),
+    pain_relievers_past_year_use == "Overall"
+  ) %>%
+  separate(state_fips_code_numeric, c("fips_code", "state"),
+           sep = "-") %>%
+  select(fips_code, state, use_est = row_percent, use_se = row_percent_se, year)
