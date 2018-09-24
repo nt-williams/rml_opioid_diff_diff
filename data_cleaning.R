@@ -1,4 +1,9 @@
 
+# Nick T. Williams
+# Columbia University
+# Mailman School of Public Health 
+# Department of Biostatistics
+
 library(tidyverse)
 
 # CLEANING LIFETIME HEROIN USE
