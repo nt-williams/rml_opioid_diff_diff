@@ -65,11 +65,11 @@ diffdiff <- function(df, s, y1, y2) {
     mutate(diff_diff = difference1 - difference2) %>%
     select(diff_diff)
   
-  ci_state <- quantile(simulated_diff$difference1, c(0.025, 0.975))*100
-  ci_us <- quantile(simulated_diff$difference2, c(0.025, 0.975))*100
-  ci <- quantile(diff_in_diff$diff_diff, c(0.025, 0.975))*100
-  delta <- mean(diff_in_diff$diff_diff)*100
-  se <- sd(diff_in_diff$diff_diff)*100
+  ci_state <- round(quantile(simulated_diff$difference1, c(0.025, 0.975))*100, 2)
+  ci_us <- round(quantile(simulated_diff$difference2, c(0.025, 0.975))*100, 2)
+  ci <- round(quantile(diff_in_diff$diff_diff, c(0.025, 0.975))*100, 2)
+  delta <- round(mean(diff_in_diff$diff_diff)*100, 2)
+  se <- round(sd(diff_in_diff$diff_diff)*100, 2)
   
   results <- list(
     "State difference" = (est_1$use_est - est_2$use_est) * 100,
