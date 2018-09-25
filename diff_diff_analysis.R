@@ -65,22 +65,21 @@ diffdiff <- function(df, state, y1, y2) {
     select(diff_diff)
   
   ci_state <- quantile(simulated_diff$difference1, c(0.025, 0.975))*100
-  
   ci_us <- quantile(simulated_diff$difference2, c(0.025, 0.975))*100
-  
   ci <- quantile(diff_in_diff$diff_diff, c(0.025, 0.975))*100
-  
   delta <- mean(diff_in_diff$diff_diff)*100
-  
   se <- sd(diff_in_diff$diff_diff)*100
   
-  values <- list("State difference CI" = ci_state, 
-                 "US difference CI" = ci_us,
-                 "diff-in-diff" = delta, 
-                 "diff-in-diff SE" = se, 
-                 "diff-in-diff CI" = ci)
+  results <- list(
+    "State difference" = est_1$
+    "State difference CI" = ci_state,
+    "US difference CI" = ci_us,
+    "diff-in-diff" = delta,
+    "diff-in-diff SE" = se,
+    "diff-in-diff CI" = ci
+  )
   
-  return(print(values))
+  return(print(results))
 }
 
 
