@@ -10,27 +10,28 @@ library(tidyverse)
 
 lt_heroin_data <- read_csv(
   "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/clean/lt_heroin_10_16.csv",
-  col_types = 'ccddi'
+  col_types = 'ccccddi'
   )
 
 py_oud_data <-
   read_csv(
     "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/clean/py_oud_10_16.csv",
-    col_types = 'ccddi'
+    col_types = 'ccccddi'
   )
 
 nmpou_data <-
   read_csv(
     "C:/Users/niwi8/OneDrive - cumc.columbia.edu/Practicum/mj_opioid_d_in_d/data/clean/nmpou_nosex_noage_10_16.csv",
-    col_types = 'ccddi'
+    col_types = 'ccccddi'
   )
 
 # diff-in-diff function
 
-diffdiff <- function(df, state, y1, y2) {
-  est_1 <- df %>% filter(state == state, 
+diffdiff <- function(df, s, y1, y2) {
+  
+  est_1 <- df %>% filter(state == s, 
                          year == y1)
-  est_2 <- df %>% filter(state == state, 
+  est_2 <- df %>% filter(state == s, 
                          year == y2)
   us_1  <- df %>% filter(state == "Overall", 
                          year == y1)
@@ -71,7 +72,7 @@ diffdiff <- function(df, state, y1, y2) {
   se <- sd(diff_in_diff$diff_diff)*100
   
   results <- list(
-    "State difference" = est_1$
+    "State difference" = (est_1$use_est - est_2$use_est) * 100,
     "State difference CI" = ci_state,
     "US difference CI" = ci_us,
     "diff-in-diff" = delta,
@@ -82,9 +83,13 @@ diffdiff <- function(df, state, y1, y2) {
   return(print(results))
 }
 
+# Example
+
+diffdiff(lt_heroin_data, "Colorado", 2016, 2011)
+
 
 # CONDUCTING ANALYSES
-# states to be used for analyses in a for loop
+# states to be used for analyses
 
 state_names <- c("Alaska", "Colorado", "Oregon", "Washington")
 
