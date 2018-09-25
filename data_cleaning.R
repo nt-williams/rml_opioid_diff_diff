@@ -23,7 +23,7 @@ lt_heroin_data <- bind_rows(lt_heroin_1011_data,
 
 lt_heroin_data <- janitor::clean_names(lt_heroin_data)
 
-# cleaning data
+# tidying data
 
 lt_heroin_data <- lt_heroin_data %>%
   filter(
@@ -68,7 +68,7 @@ py_oud_data <- bind_rows(py_oud_1011_data,
 
 py_oud_data <- janitor::clean_names(py_oud_data)
 
-# cleaning data
+# tidying data
 
 py_oud_data <- py_oud_data %>%
   filter(
@@ -113,7 +113,7 @@ nmpou_data <- bind_rows(nmpou_1011_data,
 
 nmpou_data <- janitor::clean_names(nmpou_data)
 
-# cleaning data
+# tidying data
 
 nmpou_data <- nmpou_data %>%
   filter(
